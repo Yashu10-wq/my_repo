@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flipping Card</title>
+    <style>
+        body {
+            background-color: rgb(53, 39, 66);
+           
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+           
+        }
+        .nav {
+            padding: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 80px;
+            background-color: rgba(135, 75, 126, 0.123);
+            border-radius: 5px;
+            color: white;
+        }
+        .nav h2 {
+            margin-left: 0;
+        }
+        .nav nav {
+            padding: 20px;
+        }
+        .nav nav button {
+            color: rgb(29, 34, 38);
+            background-color: transparent;
+            margin: 10px 50px;
+            font-size: large;
+            padding: 4px;
+            font-weight: 600;
+            border: none;
+        }
+        .nav nav button:hover {
+            transform: scale(1.04);
+            opacity: 0.5;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.5s ease;
+            background-color: rgba(209, 72, 240, 0.724);
+        }
+        .tanuu {
+            perspective: 1000px;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            gap: 40px;
+            margin-top: 30px;
+            max-width: 100%;
+            background-color: transparent;
+        }
+        .card {
+            width: 300px;
+            height: 300px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+        }
+        .card:hover {
+            transform: rotateY(180deg);
+        }
+        .front, .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .front {
+            background-color: rgba(189, 209, 209, 0);
+        }
+        .back {
+            background-color: rgb(135, 75, 126);
+            transform: rotateY(180deg);
+            color: rgb(234, 184, 227);
+        }
+        .tanuu .card .front .img {
+            height: 300px;
+            width: 300px;
+            background-color: black;
+            object-fit: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .tanuu .card .front .img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        .heart {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #380160, #492769);
+            position: relative;
+            transform: rotate(-45deg);
+            margin-top: 100px;
+            animation: pulse 1.5s infinite ease-in-out;
+            box-shadow: 0 0 20px rgba(138, 43, 226, 0.6);
+        }
+        .heart::before,
+        .heart::after {
+            content: '';
+            width: 100px;
+            height: 100px;
+            background: inherit;
+            border-radius: 50%;
+            position: absolute;
+        }
+        .heart::before {
+            top: -50px;
+            left: 0;
+        }
+        .heart::after {
+            left: 50px;
+            top: 0;
+        }
+        .gift {
+            text-align: center;
+            color: #dcc3ff;
+            margin-top: 50px;
+            font-weight: bold;
+            font-size: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        /* Envelope */
+                /* Envelope */
+                .envelope {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            background-color: #c49bd4;
+            border: 4px solid #382f41;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+           overflow: hidden;
+            transition: all 0.4s ease-in-out;
+        }
+
+        .envelope:hover .flap {
+            transform: rotateX(180deg);
+        }
+
+        .flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background-color: #8e5aaf;
+            transform-origin: top;
+            transition: transform 0.6s ease-in-out;
+            z-index: 2;
+        }
+
+        .body {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.6s ease-in-out 0.3s;
+    text-align: center; /* Ensure the text stays centered */
+}
+.envelope:hover .body{
+    opacity: 1;
+}
+.message {
+    font-size: 17px;
+    color: #271438;
+    font-weight: bold;
+    text-align: center; /* Center the text */
+    margin: 0; /* Remove left margin */
+    max-width: 80%; /* Prevent text from stretching */
+}
+.dyk{
+    color: hsl(263, 80%, 4%);
+    background-color: rgb(179, 139, 176);
+    margin: 10px;
+   position: relative;
+    border-radius: 10px;
+    padding: 10px;
+    width: fit-content;
+ 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: auto;
+  margin-top: 30px;
+}
+.dyk button{
+    background-color: #8e5aaf;
+   border-radius: 4px;
+   padding: 3px;
+   font-weight: 700;
+  
+}
+.dyk button:hover{
+    transform: rotate(2deg);
+    transition: 0.5s ease all;
+}
+.dyk .cam{
+    height: 200px;
+    width: 200px;
+    background: #382f41;
+    border-radius: 4px;
+    margin-top: 10px;
+    color: aliceblue;
+    padding: 10px;
+
+}
+.dyk .cam video{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1) rotate(-45deg);
+                box-shadow: 0 0 20px rgba(138, 43, 226, 0.6);
+            }
+            50% {
+                transform: scale(1.2) rotate(-45deg);
+                box-shadow: 0 0 40px rgba(138, 43, 226, 1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <h2>LOVE</h2>
+        <nav>
+            <a href="#"><button>HOME</button></a>
+            <a href="#"><button>ABOUT HER</button></a>
+            <a href="#"><button>US</button></a>
+            <a href="#"><button>GALLERY</button></a>
+        </nav>
+    </div>
+
+    <div class="tanuu">
+        <div class="card">
+            <div class="front">
+                <div class="img">
+                    <img src="C:\Users\DELL\Downloads\tanisha1.jpg" alt="Tanisha">
+                </div>
+            </div>
+            <div class="back">
+                <h2>THIS IS TANISHA</h2>
+                <p>She is beautiful, isn't she?</p>
+                <p>Meri bandi ko nazar mat lagao smjhee</p>
+            </div>
+        </div>
+
+        <div class="heart"></div>
+
+        <div class="card">
+            <div class="front">
+                <div class="img">
+                    <img src="C:\Users\DELL\Downloads\me.jpg" alt="Me">
+                </div>
+            </div>
+            <div class="back">
+                <h2>THIS IS ME</h2>
+                <p>IK MY PULL UP GAME IS STRONG</p>
+                <p>Meri bandi ko ghuro mat smjhe</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="gift">
+       <h1>PRINCESS</h1>
+       <H3>An Envelope</H3>
+       <div class="envelope">
+            <div class="flap"></div>
+            <div class="body">
+                <p class="message">   Sbh khokar paya tujhe voh bhot hai<br>
+                    sbh mil bhi jaye toh tujhe khoneka khauf hai <br>
+                    tere bina yeh zindagi sirf maut hai<br>
+                    kabhi gyi dur toh umeed ki  tu laut aye<br>
+
+
+   </p>
+            </div>
+        </div>
+    </div>
+    <div class="dyk">
+        <h2>DO U KNOW </h2>
+        <H3>WHO IS THE MOST BEAUTIFUL WOMEN IN THE WORLD?</H3>
+        <P>CLICK THE BELOW BUTTON TO FIND OUT </P>
+
+        <button onclick="startCamera()">CLICK ME </button>
+        <div class="cam">
+            
+            <video id="videoElement" autoplay></video>
+        </div>
+    </div>
+
+    <script>
+        function startCamera() {
+            navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } }) // Front camera
+                .then(function(stream) {
+                    let video = document.getElementById('videoElement');
+                    video.srcObject = stream;
+                })
+                .catch(function(error) {
+                    console.error("Error accessing the camera:", error);
+                    alert("Could not access camera. Please allow camera permissions.");
+                });
+        }
+    </script>
+</body>
+</html>
